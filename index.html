@@ -1,11 +1,25 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <link href="styles/style.css" rel="stylesheet">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Home for bots</title>
         <script src="js/jquery-3.5.1.min.js"></script>
         <link href="https://fonts.googleapis.com/css2?family=EB+Garamond&family=Oswald:wght@600&display=swap" rel="stylesheet"> 
     </head>
     <body>
-        <span class="centered">Which bot will you use today?</span>
+        <script src="js/anims.js"></script>
+      
+        <div id="menu-box" onclick="slideNavBar()"><span class="noselect">MENU</span></div>
+   
+        <div id="curtain-menu">
+            <a class="closebtn noselect" onclick="closeNav()">&times;</a>
+            <div class="curtain-menu-content">
+                <a class="noselect" href="#">FACEBOOK GROUP MANAGER</a>
+            </div>
+            
+        </div>
+   
+        <span class="centered noselect">Which bot will you use today?</span>
     </body>
 </html>

@@ -1,15 +1,88 @@
 * {
     font-family: 'EB Garamond', serif;
     font-family: 'Oswald', sans-serif;
-    margin: 0 auto;
+    overflow-y: hidden;
+    overflow-x: hidden;
 }
 
 body {
     background-color: #ffffff;
+    margin: 0;
+}
+
+a {
+    text-decoration: none;
+}
+
+.noselect {
+    -webkit-touch-callout: none; /* iOS Safari */
+      -webkit-user-select: none; /* Safari */
+       -khtml-user-select: none; /* Konqueror HTML */
+         -moz-user-select: none; /* Old versions of Firefox */
+          -ms-user-select: none; /* Internet Explorer/Edge */
+              user-select: none; /* Non-prefixed version, currently
+                                    supported by Chrome, Edge, Opera and Firefox */
+  }
+
+#curtain-menu {
+    position: fixed;
+    width: 0%;
+    height: 100%;
+    background-color: #2F323A;
+    opacity: 0.97;
+    z-index: 2;
+}
+
+.curtain-menu-content {
+    position: relative;
+    top: 50%;
+    transform: translate(0, -50%);
+    text-align: center;
+    width: 100%;
+}
+
+#curtain-menu a {
+    font-size: 6vh;
+    color:#9D8420;
+    transition: ease-in-out 0.1s;
+}
+
+#curtain-menu a:hover {
+    color: #ffffff;
+}
+
+.closebtn {
+    position: absolute;
+    top: 3%;
+    right: 3%;
 }
 
 .centered {
-    margin-top: 50vh;
-    margin-left: 50vh;
-    
+    margin: 0;
+    top: 50%;
+    left: 50%;
+    color: #9D8420;
+    font-size: 10vh;
+    position: absolute;
+    z-index: 1;
+    transform: translate(-50%, -50%);
 }
+/* 2F323A */
+#menu-box {
+    height: 6vh;
+    width: 10vh;
+    display: flex;
+    position: absolute;
+    justify-content: center;
+    align-items: center;
+    background-color: #9D8420;
+    color: #ffffff;
+    opacity: 0.6;
+    transition: ease-in 0.1s;
+    font-size: 3vh;
+}
+
+#menu-box:hover {
+    opacity: 1;
+}
+
