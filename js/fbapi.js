@@ -11,7 +11,17 @@ window.fbAsyncInit = function() {
     });
 
     FB.AppEvents.logPageView();   
-      
+    function groupManagement() {
+      FB.api(
+        "/me/groups", (respose) => {
+          if(response && !response.error) {
+            let groups = JSON.parse(response);
+            console.log(groups);
+          }
+        }
+      );
+    }
+
   };
 
 (function(d, s, id){
