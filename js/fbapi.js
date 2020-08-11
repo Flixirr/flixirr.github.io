@@ -41,7 +41,7 @@ function groupManagement() {
 function postTo(group) {
   var testMsg = "aaa";
   FB.api(
-    "/"+group, "post", { message: testMsg }, (response) => {
+    "/"+group+"/feed", "post", { message: testMsg }, (response) => {
         if(!response || response.error) {
           console.log("problem");
         } else {
