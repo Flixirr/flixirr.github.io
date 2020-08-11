@@ -4,7 +4,7 @@
     overflow-y: hidden;
     overflow-x: hidden;
 }
-
+/* 2F323A 77567A C47AC0*/
 body {
     background-color: #ffffff;
     margin: 0;
@@ -23,6 +23,10 @@ a {
               user-select: none; /* Non-prefixed version, currently
                                     supported by Chrome, Edge, Opera and Firefox */
   }
+
+.txtclrpnk {
+    color: #77567A !important;
+}
 
 #curtain-menu {
     position: fixed;
@@ -67,7 +71,7 @@ a {
     z-index: 1;
     transform: translate(-50%, -50%);
 }
-/* 2F323A */
+
 #menu-box {
     height: 6vh;
     width: 10vh;
