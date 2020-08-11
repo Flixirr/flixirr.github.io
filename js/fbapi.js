@@ -37,3 +37,16 @@ function groupManagement() {
     }
   );
 }
+
+function postTo(group) {
+  var testMsg = "aaa";
+  FB.api(
+    "/"+group, "post", { message: testMsg }, (response) => {
+        if(!response || response.error) {
+          console.log("problem");
+        } else {
+          console.log("no problem, id " + response.id);
+        }
+    }
+  )
+}
