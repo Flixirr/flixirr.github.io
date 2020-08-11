@@ -38,16 +38,17 @@ function groupManagement() {
   );
 }
 
-function postTo(group) {
+function postTo(group, accToken) {
   var testMsg = "aaa";
   FB.api(
-    "/"+group+"/feed", "post", { message: testMsg }, (response) => {
+    "/"+group+"/feed", "post", { message: testMsg, access_token: accToken }, (response) => {
         if(!response || response.error) {
           console.log("problem");
-          console.log(response);
+          console.log(response.error);
         } else {
           console.log("no problem, id " + response.id);
         }
     }
   )
 }
+
