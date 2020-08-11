@@ -44,6 +44,7 @@ function postTo(group) {
     "/"+group+"/feed", "post", { message: testMsg }, (response) => {
         if(!response || response.error) {
           console.log("problem");
+          console.log(response);
         } else {
           console.log("no problem, id " + response.id);
         }
