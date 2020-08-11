@@ -32,8 +32,7 @@ function groupManagement() {
   FB.api(
     "/me/groups", (response) => {
       if(response && !response.error) {
-        let groups = JSON.parse(response);
-        console.log(groups);
+        console.log(response);
       }
     }
   );
