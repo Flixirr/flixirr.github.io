@@ -22,9 +22,12 @@ window.fbAsyncInit = function() {
     fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));
 
+var userToken;
+
 function checkLoginState() {
   FB.getLoginStatus(function(response) {
-    console.log(response);
+    userToken = response.authResponse.accessToken;
+    console.log(userToken);
   });
 }
 
@@ -38,10 +41,13 @@ function groupManagement() {
   );
 }
 
-function postTo(group, accToken) {
+function postTo(group, accToken, imgSource) {
   var testMsg = "aaa";
+  if(accToken == null) {
+    accToken = userToken;
+  }
   FB.api(
-    "/"+group+"/feed", "post", { message: testMsg, access_token: accToken }, (response) => {
+    "/"+group+"/feed", "post", { message: testMsg, source:imgSource, access_token: accToken }, (response) => {
         if(!response || response.error) {
           console.log("problem");
           console.log(response.error);
