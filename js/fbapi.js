@@ -7,11 +7,7 @@ window.fbAsyncInit = function() {
     });
     
     FB.login(function(response) {
-      FB.api(
-        "/me", (response) => {
-          checkLoginState(response.name);
-        }
-      );
+
     });
 
     FB.AppEvents.logPageView();  
@@ -28,8 +24,14 @@ window.fbAsyncInit = function() {
 
 var userToken;
 
-function checkLoginState(name) {
+function checkLoginState() {
   FB.getLoginStatus(function(response) {
+    let name;
+    FB.api(
+      "/me", (response) => {
+        name = response.name;
+      }
+    );
     userToken = response.authResponse.accessToken;
     var htmlStuff="<div class=\"centered\"><span class=\"noselect txtclrpnk\">1. Select account or page</span>"
             +"</br>"
