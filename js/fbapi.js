@@ -31,13 +31,12 @@ function checkLoginState() {
             +"</br>"
             +"<form action=\"\" method=\"post\">"
             +"<select name=\"dropdown\" id=\"acc-select\">"
-            +"<option value=\"d1\" selected>test1</option>"
-            +"<option value=\"d2\">test2</option>"
+            +"<option value=\"1\" selected>"+response.name+"</option>"
             +"</select>"+"<input type=\"submit\" value =\"Submit\"/>"
             +"</form></div>";
 
     $('.centered').replaceWith(htmlStuff);
-
+    getAccounts();
   });
 }
 
@@ -57,7 +56,7 @@ function getAccounts() {
       if(response && !response.error) {
         let accounts = response.data;
         for(let i = 0; i < accounts.length; i++) {
-          $("#acc-select").append("<option value="+i+" selected>"+accounts[i].name+"</option>");
+          $("#acc-select").append("<option value="+(i+2)+" selected>"+accounts[i].name+"</option>");
         }
       }
     }
