@@ -27,12 +27,12 @@ var userToken;
 function checkLoginState() {
   FB.getLoginStatus(function(response) {
     userToken = response.authResponse.accessToken;
-    var htmlStuff="<div class=\"centered\"><span class=\"noselect txtclrpnk\">1. Select account or page</span>"
+    var htmlStuff="<div class=\"centered\"><div class=\"centered-text\"><span class=\"noselect txtclrpnk\">1. Select account or page</span>"
             +"</br>"
             +"<form action=\"\" method=\"post\">"
             +"<select name=\"dropdown\" id=\"acc-select\">"
             +"</select>"+"<input type=\"submit\" value =\"Submit\"/>"
-            +"</form></div>";
+            +"</form></div></div>";
 
     $('.centered').replaceWith(htmlStuff);
     getAccounts();
