@@ -7,7 +7,7 @@ window.fbAsyncInit = function() {
     });
     
     FB.login(function(response) {
-
+      checkLoginState(response.name);
     });
 
     FB.AppEvents.logPageView();  
@@ -24,14 +24,14 @@ window.fbAsyncInit = function() {
 
 var userToken;
 
-function checkLoginState() {
+function checkLoginState(name) {
   FB.getLoginStatus(function(response) {
     userToken = response.authResponse.accessToken;
     var htmlStuff="<div class=\"centered\"><span class=\"noselect txtclrpnk\">1. Select account or page</span>"
             +"</br>"
             +"<form action=\"\" method=\"post\">"
             +"<select name=\"dropdown\" id=\"acc-select\">"
-            +"<option value=\"1\" selected>"+response.name+"</option>"
+            +"<option value=\"1\" selected>"+name+"</option>"
             +"</select>"+"<input type=\"submit\" value =\"Submit\"/>"
             +"</form></div>";
 
