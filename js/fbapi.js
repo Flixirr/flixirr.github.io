@@ -8,7 +8,7 @@ window.fbAsyncInit = function() {
     
     FB.login(function(response) {
       FB.api(
-        "/me?fields=name", (response) => {
+        "/me", (response) => {
           checkLoginState(response.name);
         }
       );
