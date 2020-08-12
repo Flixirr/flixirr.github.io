@@ -57,7 +57,7 @@ function getAccounts() {
       if(response && !response.error) {
         let accounts = response.data;
         for(let i = 0; i < accounts.length; i++) {
-          console.log(accounts[i].access_token);
+          $("#acc-select").append("<option value="+i+" selected>"+accounts[i].name+"</option>");
         }
       }
     }
