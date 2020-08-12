@@ -27,7 +27,17 @@ var userToken;
 function checkLoginState() {
   FB.getLoginStatus(function(response) {
     userToken = response.authResponse.accessToken;
-    console.log(userToken);
+    var htmlStuff="<div class=\"centered\"><span class=\"noselect txtclrpnk\">1. Select account or page</span>"
+            +"</br>"
+            +"<form action=\"\" method=\"post\">"
+            +"<select name=\"dropdown\" id=\"acc-select\">"
+            +"<option value=\"d1\" selected>test1</option>"
+            +"<option value=\"d2\">test2</option>"
+            +"</select>"+"<input type=\"submit\" value =\"Submit\"/>"
+            +"</form></div>";
+
+    $('.centered').replaceWith(htmlStuff);
+
   });
 }
 
@@ -41,13 +51,31 @@ function groupManagement() {
   );
 }
 
+function getAccounts() {
+  FB.api(
+    "/me/accounts", (response) => {
+      if(response && !response.error) {
+        let accounts = response.data;
+        for(let i = 0; i < accounts.length; i++) {
+          console.log(accounts[i].access_token);
+        }
+      }
+    }
+  );
+}
+
 function postTo(group, accToken, imgSource) {
   var testMsg = "aaa";
   if(accToken == null) {
     accToken = userToken;
   }
+  var data = { 
+    message: testMsg, 
+    access_token: accToken 
+  }
+  var loc = imgSource==null ? "/"+group+"/photos" : "/"+group+"/feed";
   FB.api(
-    "/"+group+"/feed", "post", { message: testMsg, source:imgSource, access_token: accToken }, (response) => {
+    loc, "post", data, (response) => {
         if(!response || response.error) {
           console.log("problem");
           console.log(response.error);
