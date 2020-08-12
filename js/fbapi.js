@@ -26,18 +26,11 @@ var userToken;
 
 function checkLoginState() {
   FB.getLoginStatus(function(response) {
-    let name;
-    FB.api(
-      "/me", (response) => {
-        name = response.name;
-      }
-    );
     userToken = response.authResponse.accessToken;
     var htmlStuff="<div class=\"centered\"><span class=\"noselect txtclrpnk\">1. Select account or page</span>"
             +"</br>"
             +"<form action=\"\" method=\"post\">"
             +"<select name=\"dropdown\" id=\"acc-select\">"
-            +"<option value=\"1\" selected>"+name+"</option>"
             +"</select>"+"<input type=\"submit\" value =\"Submit\"/>"
             +"</form></div>";
 
@@ -57,6 +50,11 @@ function groupManagement() {
 }
 
 function getAccounts() {
+  FB.api(
+    "/me", (response) => {
+      $("#acc-select").append("<option value=\"1\">"+response.name+"</option>");
+    }
+  );
   FB.api(
     "/me/accounts", (response) => {
       if(response && !response.error) {
