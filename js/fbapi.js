@@ -7,8 +7,11 @@ window.fbAsyncInit = function() {
     });
     
     FB.login(function(response) {
-      console.log(response);
-      checkLoginState(response.name);
+      FB.api(
+        "/me?fields=name", (response) => {
+          checkLoginState(response.name);
+        }
+      );
     });
 
     FB.AppEvents.logPageView();  
