@@ -60,7 +60,7 @@ function getAccounts() {
       if(response && !response.error) {
         let accounts = response.data;
         for(let i = 0; i < accounts.length; i++) {
-          $("#acc-select").append("<option value="+(i+2)+" selected>"+accounts[i].name+"</option>");
+          $("#acc-select").append("<option value="+(i+2)+">"+accounts[i].name+"</option>");
         }
       }
     }
