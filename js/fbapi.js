@@ -124,6 +124,15 @@ function addGroup() {
   }
 }
 
+function removeGroup() {
+  let selected = allGroups[$('#grp-select option:selected').val()];
+  const index = groupList.indexOf(selected);
+  if(index > -1) {
+    groupList.splice(index,1);
+    $("#"+selected.id+"").replaceWith("");
+  }
+}
+
 function postTo(group, accToken, imgSource) {
   var testMsg = "aaa";
   if(accToken == undefined) {
