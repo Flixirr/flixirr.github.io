@@ -114,7 +114,7 @@ function setAccount() {
 var groupList = [];
 
 function addGroup() {
-  let selected = allGroups[$('grp-select option:selected').val()];
+  let selected = allGroups[$('#grp-select option:selected').val()];
   groupList.push(selected);
   $(".groups").append(selected.name+"</br>");
 }
