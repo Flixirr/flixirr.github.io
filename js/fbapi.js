@@ -160,19 +160,6 @@ function ajaxPost() {
 
   var data = new FormData();
 
-  if(file != undefined) {
-    var reader = new FileReader();
-    reader.onload = function (e) {
-        var arrayBuffer = e.target.result;
-        var blob = new Blob([arrayBuffer], { type: file.type });
-        data.append('source', blob);
-  
-    };
-    reader.readAsArrayBuffer(file);
-  }
-
-  procUrl = file == undefined ? 'https://graph.facebook.com/'+groupList[0].id+'/feed' : 'https://graph.facebook.com/'+groupList[0].id+'/photos';
-
   data.append('message', message);
   if(choosenAcc == undefined) {
     data.append('access_token', FB.getAccessToken());
@@ -182,23 +169,37 @@ function ajaxPost() {
   if(link != "") {
     data.append('link', link);
   }
-  console.log(data);
+
+  if(file != undefined) {
+    var reader = new FileReader();
+    reader.onload = function (e) {
+        var arrayBuffer = e.target.result;
+        var blob = new Blob([arrayBuffer], { type: file.type });
+        data.append('source', blob);
+        ajaxPostPure(data, 'https://graph.facebook.com/'+groupList[0].id+'/photos');
+    };
+    reader.readAsArrayBuffer(file);
+  }
+  ajaxPostPure(data, 'https://graph.facebook.com/'+groupList[0].id+'/feed');
+}
+
+function ajaxPostPure(data, procUrl) {
   $.ajax({
-      url: procUrl,
-      type: 'POST',
-      data: data,
-      processData: false,
-      contentType: false,
-      cache: false,
-      success:function (data) {
-          console.log(data)
-      },
-      error:function (data) {
-          console.log(data);
-      },
-      complete: function () {
-          console.log("Done");
-      }
+    url: procUrl,
+    type: 'POST',
+    data: data,
+    processData: false,
+    contentType: false,
+    cache: false,
+    success:function (data) {
+        console.log(data)
+    },
+    error:function (data) {
+        console.log(data);
+    },
+    complete: function () {
+        console.log("Done");
+    }
   });
 }
 
