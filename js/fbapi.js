@@ -62,6 +62,9 @@ function groupManagement() {
           "<div class=\"grp-rem\">"+
               "<span class=\"noselect group-bt-txt\">REMOVE GROUP</span>"+
           "</div>"+
+          "<div class=\"grp-cont\">"+
+              "<span class=\"noselect group-bt-txt\">CONTINUE</span>"+
+          "</div>"+
       "</div>"+
   "</div>";
 
@@ -115,8 +118,10 @@ var groupList = [];
 
 function addGroup() {
   let selected = allGroups[$('#grp-select option:selected').val()];
-  groupList.push(selected);
-  $(".groups").append(selected.name+"</br>");
+  if(!groupList.includes(selected)) {
+    groupList.push(selected);
+    $(".groups").append("<span id="+selected.id+">"+selected.name+"</span></br>");
+  }
 }
 
 function postTo(group, accToken, imgSource) {

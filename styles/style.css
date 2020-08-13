@@ -97,7 +97,20 @@ a {
 
 .grp-rem {
     position: absolute;
-    top:55%;
+    top:50%;
+    height: 20%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #77567A;
+    transition: ease-in 0.1s;
+    opacity: 0.6;
+}
+
+.grp-cont {
+    position: absolute;
+    top:75%;
     height: 20%;
     width: 100%;
     display: flex;
@@ -115,6 +128,11 @@ a {
 .group-btn:hover {
     opacity: 1;
 }
+
+.grp-cont:hover {
+    opacity: 1;
+}
+
 
 #grp-select {
     position: absolute;
