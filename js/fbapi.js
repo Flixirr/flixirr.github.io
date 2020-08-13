@@ -62,7 +62,7 @@ function groupManagement() {
           "<div class=\"grp-rem\" onclick=\"removeGroup()\">"+
               "<span class=\"noselect group-bt-txt\">REMOVE GROUP</span>"+
           "</div>"+
-          "<div class=\"grp-cont\">"+
+          "<div class=\"grp-cont\" onclick=\"continueToPost()\">"+
               "<span class=\"noselect group-bt-txt\">CONTINUE</span>"+
           "</div>"+
       "</div>"+
@@ -130,6 +130,73 @@ function removeGroup() {
   if(index > -1) {
     groupList.splice(index,1);
     $("#"+selected.id+"").replaceWith("");
+  }
+}
+
+function continueToPost() {
+  var htmlStuff ="<div class=\"centered\">"+
+    "<div class=\"centered-text\">"+
+        "<span class=\"noselect txtclrpnk\">3. Create post</span>"+
+        "<span class=\"warning noselect\">WARNING! You can't send link to an event you're not hosting.</span>"+
+        "<textarea name=\"message\" rows=\"10\" cols=\"50\" placeholder=\"Enter text here\"></textarea>"+
+        "<div>"+
+            "<input type=\"text\" placeholder=\"Link to group, page, event etc.\" />"+
+        "</div>"+
+        "<div>"+
+            "<input type=\"file\" id=\"image-src\"/>"+
+            "<button id=\"post-fb\" onclick=\"ajaxPost()\">POST</button>"+
+        "</div>"+
+    "</div>"+
+  "</div>";
+
+  $('.centered').replaceWith(htmlStuff);
+}
+
+function ajaxPost() {
+  var file = $('#image-src')[0].files[0];
+    // Get file object from file input
+ 
+  // If file is selected
+  if (file) {
+      // We will use FileReader
+      var reader = new FileReader();
+      // And and onload callback when file data loaded
+      reader.onload = function (e) {
+          // This is array buffer of the file
+          var arrayBuffer = e.target.result;
+          // And blob object of the file
+          var blob = new Blob([arrayBuffer], { type: file.type });
+
+          // We will use FormData object to create multipart/form request
+          var data = new FormData();
+          data.append('access_token', FB.getAccessToken());
+          data.append('source', blob);
+          data.append('message', 'test');
+
+          $('#uploading').show();
+
+          // Send the request manually with jQeury
+          $.ajax({
+              url: 'https://graph.facebook.com/'+groupList[0].id+'/photos',
+              type: 'POST',
+              data: data,
+              processData: false,
+              contentType: false,
+              cache: false,
+              success:function (data) {
+                  console.log(data)
+              },
+              error:function (data) {
+                  console.log(data);
+              },
+              complete: function () {
+                  console.log("Done");
+              }
+          });
+
+      };
+      // Read file as array buffer to create blob object
+      reader.readAsArrayBuffer(file);
   }
 }
 
