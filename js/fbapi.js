@@ -157,43 +157,48 @@ function ajaxPost() {
   var message = $('#post-msg').val();
   var link = $('#link').val();
   var file = $('#image-src')[0].files[0];
-  var reader = new FileReader();
-  reader.onload = function (e) {
-    if(file) {
-      var arrayBuffer = e.target.result;
-      var blob = new Blob([arrayBuffer], { type: file.type });
-      var data = new FormData();
-      data.append('source', blob);
-    }
-      data.append('message', message);
-      if(choosenAcc == undefined) {
-        data.append('access_token', FB.getAccessToken());
-      } else {
-        data.append('access_token', choosenAcc.access_token);
+
+  var data = new FormData();
+
+  if(file != undefined) {
+    var reader = new FileReader();
+    reader.onload = function (e) {
+        var arrayBuffer = e.target.result;
+        var blob = new Blob([arrayBuffer], { type: file.type });
+        data.append('source', blob);
+  
+    };
+    reader.readAsArrayBuffer(file);
+  }
+
+
+  data.append('message', message);
+  if(choosenAcc == undefined) {
+    data.append('access_token', FB.getAccessToken());
+  } else {
+    data.append('access_token', choosenAcc.access_token);
+  }
+  if(link != "") {
+    data.append('link', link);
+  }
+  $('#uploading').show();
+  $.ajax({
+      url: 'https://graph.facebook.com/'+groupList[0].id+'/photos',
+      type: 'POST',
+      data: data,
+      processData: false,
+      contentType: false,
+      cache: false,
+      success:function (data) {
+          console.log(data)
+      },
+      error:function (data) {
+          console.log(data);
+      },
+      complete: function () {
+          console.log("Done");
       }
-      if(link != "") {
-        data.append('link', link);
-      }
-      $('#uploading').show();
-      $.ajax({
-          url: 'https://graph.facebook.com/'+groupList[0].id+'/photos',
-          type: 'POST',
-          data: data,
-          processData: false,
-          contentType: false,
-          cache: false,
-          success:function (data) {
-              console.log(data)
-          },
-          error:function (data) {
-              console.log(data);
-          },
-          complete: function () {
-              console.log("Done");
-          }
-      });
-  };
-  reader.readAsArrayBuffer(file);
+  });
 }
 
 function postTo(group, accToken, imgSource) {
