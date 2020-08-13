@@ -56,7 +56,7 @@ function groupManagement() {
       "<div class=\"group-options\">"+
           "<select id=\"grp-select\">"+
           "</select>"+
-          "<div class=\"group-btn\" onclick=\"addElem()\">"+
+          "<div class=\"group-btn\" onclick=\"addGroup()\">"+
               "<span class=\"noselect group-bt-txt\">ADD GROUP</span>"+
           "</div>"+
           "<div class=\"grp-rem\">"+
@@ -114,7 +114,9 @@ function setAccount() {
 var groupList = [];
 
 function addGroup() {
-  groupList.push(allGroups[$('grp-select option:selected').val()]);
+  let selected = allGroups[$('grp-select option:selected').val()];
+  groupList.push(selected);
+  $(".groups").append(selected.name+"</br>");
 }
 
 function postTo(group, accToken, imgSource) {
