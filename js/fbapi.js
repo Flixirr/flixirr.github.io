@@ -154,47 +154,46 @@ function continueToPost() {
 // from https://vedmant.com/facebook-graph-api-upload-photo-using-javascript-local-computer/?fbclid=IwAR1pO_ZjEQXR_N6XHAxtSEHexArHWbc-gRxGismV0WIJq7B6yesoRjsSioA
 // needed to convert image to formdata and found this script which also posts it automatically
 function ajaxPost() {
-  var file = $('#image-src')[0].files[0];
   var message = $('#post-msg').val();
   var link = $('#link').val();
-  if (file) {
-      var reader = new FileReader();
-      reader.onload = function (e) {
-          var arrayBuffer = e.target.result;
-          var blob = new Blob([arrayBuffer], { type: file.type });
-          var data = new FormData();
-          if(choosenAcc == undefined) {
-            data.append('access_token', FB.getAccessToken());
-          } else {
-            data.append('access_token', choosenAcc.access_token);
+  var file = $('#image-src')[0].files[0];
+  var reader = new FileReader();
+  reader.onload = function (e) {
+    if(file) {
+      var arrayBuffer = e.target.result;
+      var blob = new Blob([arrayBuffer], { type: file.type });
+      var data = new FormData();
+      data.append('source', blob);
+    }
+      data.append('message', message);
+      if(choosenAcc == undefined) {
+        data.append('access_token', FB.getAccessToken());
+      } else {
+        data.append('access_token', choosenAcc.access_token);
+      }
+      if(link != "") {
+        data.append('link', link);
+      }
+      $('#uploading').show();
+      $.ajax({
+          url: 'https://graph.facebook.com/'+groupList[0].id+'/photos',
+          type: 'POST',
+          data: data,
+          processData: false,
+          contentType: false,
+          cache: false,
+          success:function (data) {
+              console.log(data)
+          },
+          error:function (data) {
+              console.log(data);
+          },
+          complete: function () {
+              console.log("Done");
           }
-          data.append('source', blob);
-          data.append('message', message);
-          if(link != "") {
-            data.append('link', link);
-          }
-          $('#uploading').show();
-          $.ajax({
-              url: 'https://graph.facebook.com/'+groupList[0].id+'/photos',
-              type: 'POST',
-              data: data,
-              processData: false,
-              contentType: false,
-              cache: false,
-              success:function (data) {
-                  console.log(data)
-              },
-              error:function (data) {
-                  console.log(data);
-              },
-              complete: function () {
-                  console.log("Done");
-              }
-          });
-
-      };
-      reader.readAsArrayBuffer(file);
-  }
+      });
+  };
+  reader.readAsArrayBuffer(file);
 }
 
 function postTo(group, accToken, imgSource) {
