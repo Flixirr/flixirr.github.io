@@ -151,6 +151,9 @@ function continueToPost() {
 
   $('.centered').replaceWith(htmlStuff);
 }
+
+
+
 // from https://vedmant.com/facebook-graph-api-upload-photo-using-javascript-local-computer/?fbclid=IwAR1pO_ZjEQXR_N6XHAxtSEHexArHWbc-gRxGismV0WIJq7B6yesoRjsSioA
 // needed to convert image to formdata and found this script which also posts it automatically
 function ajaxPost() {
@@ -176,11 +179,15 @@ function ajaxPost() {
         var arrayBuffer = e.target.result;
         var blob = new Blob([arrayBuffer], { type: file.type });
         data.append('source', blob);
-        ajaxPostPure(data, 'https://graph.facebook.com/'+groupList[0].id+'/photos');
+        for(let i = 0; i < groupList.length; i++) {
+          ajaxPostPure(data, 'https://graph.facebook.com/'+groupList[i].id+'/photos');
+        }
     };
     reader.readAsArrayBuffer(file);
   } else {
-    ajaxPostPure(data, 'https://graph.facebook.com/'+groupList[0].id+'/feed');
+    for(let i = 0; i < groupList.length; i++) {
+      ajaxPostPure(data, 'https://graph.facebook.com/'+groupList[i].id+'/feed');
+    }
   }
 }
 
