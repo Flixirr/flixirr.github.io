@@ -179,8 +179,9 @@ function ajaxPost() {
         ajaxPostPure(data, 'https://graph.facebook.com/'+groupList[0].id+'/photos');
     };
     reader.readAsArrayBuffer(file);
+  } else {
+    ajaxPostPure(data, 'https://graph.facebook.com/'+groupList[0].id+'/feed');
   }
-  ajaxPostPure(data, 'https://graph.facebook.com/'+groupList[0].id+'/feed');
 }
 
 function ajaxPostPure(data, procUrl) {
