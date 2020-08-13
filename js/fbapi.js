@@ -182,6 +182,7 @@ function ajaxPost() {
   if(link != "") {
     data.append('link', link);
   }
+  console.log(data);
   $.ajax({
       url: procUrl,
       type: 'POST',
