@@ -29,9 +29,9 @@ function checkLoginState() {
     userToken = response.authResponse.accessToken;
     var htmlStuff="<div class=\"centered\"><div class=\"centered-text\"><span class=\"noselect txtclrpnk\">1. Select account or page</span>"
             +"</br>"
-            +"<form onsubmit=\"setAccount();\">"
+            +"<form>"
             +"<select name=\"dropdown\" id=\"acc-select\">"
-            +"</select>"+"<input type=\"submit\" value =\"Submit\"/>"
+            +"</select>"+"<button onclick=\"setAccount();\" value =\"Submit\"/>"
             +"</form></div></div>";
 
     $('.centered').replaceWith(htmlStuff);
@@ -101,6 +101,8 @@ var choosenAcc;
 function setAccount() {
   let formVal = $('#acc-select option:selected').val();
   window.alert("selected "+formVal);
+
+  groupManagement();
 }
 
 function postTo(group, accToken, imgSource) {
