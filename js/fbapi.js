@@ -120,7 +120,7 @@ function addGroup() {
   let selected = allGroups[$('#grp-select option:selected').val()];
   if(!groupList.includes(selected)) {
     groupList.push(selected);
-    $(".groups").append("<span id="+selected.id+">"+selected.name+"</br></span><");
+    $(".groups").append("<span id="+selected.id+">"+selected.name+"<br></span><");
   }
 }
 
