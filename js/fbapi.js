@@ -138,9 +138,9 @@ function continueToPost() {
     "<div class=\"centered-text\">"+
         "<span class=\"noselect txtclrpnk\">3. Create post</span>"+
         "<span class=\"warning noselect\">WARNING! You can't send link to an event you're not hosting.</span>"+
-        "<textarea name=\"message\" rows=\"10\" cols=\"50\" placeholder=\"Enter text here\"></textarea>"+
+        "<textarea id=\"post-msg\" name=\"message\" rows=\"10\" cols=\"50\" placeholder=\"Enter text here\" required></textarea>"+
         "<div>"+
-            "<input type=\"text\" placeholder=\"Link to group, page, event etc.\" />"+
+            "<input id=\"link\" type=\"text\" placeholder=\"Link to group, page, event etc.\" />"+
         "</div>"+
         "<div>"+
             "<input type=\"file\" id=\"image-src\"/>"+
@@ -155,6 +155,8 @@ function continueToPost() {
 // needed to convert image to formdata and found this script which also posts it automatically
 function ajaxPost() {
   var file = $('#image-src')[0].files[0];
+  var message = $('#post-msg').val();
+  var link = $('#link').val();
   if (file) {
       var reader = new FileReader();
       reader.onload = function (e) {
@@ -167,8 +169,10 @@ function ajaxPost() {
             data.append('access_token', choosenAcc.access_token);
           }
           data.append('source', blob);
-          data.append('message', 'test');
-
+          data.append('message', message);
+          if(link != "") {
+            data.append('link', link);
+          }
           $('#uploading').show();
           $.ajax({
               url: 'https://graph.facebook.com/'+groupList[0].id+'/photos',
