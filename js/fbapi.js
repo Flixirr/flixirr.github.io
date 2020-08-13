@@ -137,7 +137,7 @@ function continueToPost() {
   var htmlStuff ="<div class=\"centered\">"+
     "<div class=\"centered-text\">"+
         "<span class=\"noselect txtclrpnk\">3. Create post</span>"+
-        "<span class=\"warning noselect\">WARNING! You can't send link to an event you're not hosting.</span>"+
+        "<span class=\"warning noselect\">WARNING! You can't send link to an event you're not hosting. If your post includes an image, post URL's with your message as they won't appear if you post them as link</span>"+
         "<textarea id=\"post-msg\" name=\"message\" rows=\"10\" cols=\"50\" placeholder=\"Enter text here\" required></textarea>"+
         "<div>"+
             "<input id=\"link\" type=\"text\" placeholder=\"Link to group, page, event etc.\" />"+
@@ -172,7 +172,7 @@ function ajaxPost() {
   }
 
   procUrl = file == undefined ? 'https://graph.facebook.com/'+groupList[0].id+'/feed' : 'https://graph.facebook.com/'+groupList[0].id+'/photos';
-  
+
   data.append('message', message);
   if(choosenAcc == undefined) {
     data.append('access_token', FB.getAccessToken());
@@ -182,7 +182,6 @@ function ajaxPost() {
   if(link != "") {
     data.append('link', link);
   }
-  $('#uploading').show();
   $.ajax({
       url: procUrl,
       type: 'POST',
