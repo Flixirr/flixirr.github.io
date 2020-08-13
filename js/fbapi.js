@@ -151,31 +151,25 @@ function continueToPost() {
 
   $('.centered').replaceWith(htmlStuff);
 }
-
+// from https://vedmant.com/facebook-graph-api-upload-photo-using-javascript-local-computer/?fbclid=IwAR1pO_ZjEQXR_N6XHAxtSEHexArHWbc-gRxGismV0WIJq7B6yesoRjsSioA
+// needed to convert image to formdata and found this script which also posts it automatically
 function ajaxPost() {
   var file = $('#image-src')[0].files[0];
-    // Get file object from file input
- 
-  // If file is selected
   if (file) {
-      // We will use FileReader
       var reader = new FileReader();
-      // And and onload callback when file data loaded
       reader.onload = function (e) {
-          // This is array buffer of the file
           var arrayBuffer = e.target.result;
-          // And blob object of the file
           var blob = new Blob([arrayBuffer], { type: file.type });
-
-          // We will use FormData object to create multipart/form request
           var data = new FormData();
-          data.append('access_token', FB.getAccessToken());
+          if(choosenAcc == undefined) {
+            data.append('access_token', FB.getAccessToken());
+          } else {
+            data.append('access_token', choosenAcc.access_token);
+          }
           data.append('source', blob);
           data.append('message', 'test');
 
           $('#uploading').show();
-
-          // Send the request manually with jQeury
           $.ajax({
               url: 'https://graph.facebook.com/'+groupList[0].id+'/photos',
               type: 'POST',
@@ -195,7 +189,6 @@ function ajaxPost() {
           });
 
       };
-      // Read file as array buffer to create blob object
       reader.readAsArrayBuffer(file);
   }
 }
