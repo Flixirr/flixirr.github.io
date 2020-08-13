@@ -31,13 +31,15 @@ function checkLoginState() {
             +"</br>"
             +"<form>"
             +"<select name=\"dropdown\" id=\"acc-select\">"
-            +"</select>"+"<button onclick=\"setAccount();\" value =\"Submit\"/>"
+            +"</select>"+"<button onclick=\"setAccount();\" > Continue </button>"
             +"</form></div></div>";
 
     $('.centered').replaceWith(htmlStuff);
     getAccounts();
   });
 }
+
+var allGroups;
 
 function groupManagement() {
 
@@ -52,9 +54,7 @@ function groupManagement() {
       "</div>"+
           
       "<div class=\"group-options\">"+
-          "<select id=\"testSelect\">"+
-              "<option value=\"1\">test1</option>"+
-              "<option value=\"2\">test2</option>"+
+          "<select id=\"grp-select\">"+
           "</select>"+
           "<div class=\"group-btn\" onclick=\"addElem()\">"+
               "<span class=\"noselect group-bt-txt\">ADD GROUP</span>"+
@@ -70,7 +70,10 @@ function groupManagement() {
   FB.api(
     "/me/groups", (response) => {
       if(response && !response.error) {
-        console.log(response);
+        allGroups = response.data;
+        for(let i = 0; i < allGroups.length; i++) {
+          $('#grp-select').append("<option value="+i+">"+allGroups[i].name+"</option>");
+        }
       }
     }
   );
@@ -100,14 +103,23 @@ var choosenAcc;
 
 function setAccount() {
   let formVal = $('#acc-select option:selected').val();
-  window.alert("selected "+formVal);
+  if(formVal-2 >= 0) {
+    choosenAcc = accounts[formVal-2];
+  }
+  if(choosenAcc != undefined) console.log(choosenAcc);
 
   groupManagement();
 }
 
+var groupList = [];
+
+function addGroup() {
+  groupList.push(allGroups[$('grp-select option:selected').val()]);
+}
+
 function postTo(group, accToken, imgSource) {
   var testMsg = "aaa";
-  if(accToken == null) {
+  if(accToken == undefined) {
     accToken = userToken;
   }
   var data = { 
