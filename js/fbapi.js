@@ -171,7 +171,8 @@ function ajaxPost() {
     reader.readAsArrayBuffer(file);
   }
 
-
+  procUrl = file == undefined ? 'https://graph.facebook.com/'+groupList[0].id+'/feed' : 'https://graph.facebook.com/'+groupList[0].id+'/photos';
+  
   data.append('message', message);
   if(choosenAcc == undefined) {
     data.append('access_token', FB.getAccessToken());
@@ -183,7 +184,7 @@ function ajaxPost() {
   }
   $('#uploading').show();
   $.ajax({
-      url: 'https://graph.facebook.com/'+groupList[0].id+'/photos',
+      url: procUrl,
       type: 'POST',
       data: data,
       processData: false,
