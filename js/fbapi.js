@@ -29,7 +29,7 @@ function checkLoginState() {
     userToken = response.authResponse.accessToken;
     var htmlStuff="<div class=\"centered\"><div class=\"centered-text\"><span class=\"noselect txtclrpnk\">1. Select account or page</span>"
             +"</br>"
-            +"<form action=\"\" method=\"post\">"
+            +"<form onsubmit=\"setAccount();\">"
             +"<select name=\"dropdown\" id=\"acc-select\">"
             +"</select>"+"<input type=\"submit\" value =\"Submit\"/>"
             +"</form></div></div>";
@@ -40,6 +40,33 @@ function checkLoginState() {
 }
 
 function groupManagement() {
+
+  var htmlStuff="<div class=\"centered\">"+
+  "<div class=\"centered-text\">"+
+      "<span class=\"noselect txtclrpnk\">2. Select groups</span>"+
+      "<span class=\"warning noselect\">WARNING! If you're posting as a page, be sure you can post as a page on the groups you've selected.</span>"+ 
+  "</div>"+
+  "<div id=\"group-box\">"+
+      "<div class=\"groups\">"+
+
+      "</div>"+
+          
+      "<div class=\"group-options\">"+
+          "<select id=\"testSelect\">"+
+              "<option value=\"1\">test1</option>"+
+              "<option value=\"2\">test2</option>"+
+          "</select>"+
+          "<div class=\"group-btn\" onclick=\"addElem()\">"+
+              "<span class=\"noselect group-bt-txt\">ADD GROUP</span>"+
+          "</div>"+
+          "<div class=\"grp-rem\">"+
+              "<span class=\"noselect group-bt-txt\">REMOVE GROUP</span>"+
+          "</div>"+
+      "</div>"+
+  "</div>";
+
+  $('.centered').replaceWith(htmlStuff);
+
   FB.api(
     "/me/groups", (response) => {
       if(response && !response.error) {
@@ -48,6 +75,8 @@ function groupManagement() {
     }
   );
 }
+
+var accounts;
 
 function getAccounts() {
   FB.api(
@@ -58,13 +87,20 @@ function getAccounts() {
   FB.api(
     "/me/accounts", (response) => {
       if(response && !response.error) {
-        let accounts = response.data;
+        accounts = response.data;
         for(let i = 0; i < accounts.length; i++) {
           $("#acc-select").append("<option value="+(i+2)+">"+accounts[i].name+"</option>");
         }
       }
     }
   );
+}
+
+var choosenAcc;
+
+function setAccount() {
+  let formVal = $('#acc-select option:selected').val();
+  window.alert("selected "+formVal);
 }
 
 function postTo(group, accToken, imgSource) {
