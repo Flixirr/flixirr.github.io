@@ -59,7 +59,7 @@ function groupManagement() {
           "<div class=\"group-btn\" onclick=\"addGroup()\">"+
               "<span class=\"noselect group-bt-txt\">ADD GROUP</span>"+
           "</div>"+
-          "<div class=\"grp-rem\">"+
+          "<div class=\"grp-rem\"> onclick=\"removeGroup()\""+
               "<span class=\"noselect group-bt-txt\">REMOVE GROUP</span>"+
           "</div>"+
           "<div class=\"grp-cont\">"+
