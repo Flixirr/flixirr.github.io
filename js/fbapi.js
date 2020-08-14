@@ -214,7 +214,7 @@ function ajaxPostPure(data, procUrl, group) {
       groupsFailed += group + " ";
     },
     complete: function () {
-      if((success + fail) == groupList.length) window.alert("Posting finished with " + success + " post requests succeeded and " + fail + " failed.")
+      if((success + fail) == groupList.length) window.alert("Posting finished with " + success + " post requests succeeded and " + fail + " failed: " + groupsFailed)
       continueToPost();
       //here goes the message alert box, but I don't have time to implement it now
     }
