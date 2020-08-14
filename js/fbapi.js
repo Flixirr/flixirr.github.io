@@ -192,7 +192,7 @@ function ajaxPost() {
       ajaxPostPure(data, 'https://graph.facebook.com/'+groupList[i].id+'/feed');
     }
   }
-  window.alert("Posting finished with " + success + " post requests succeeded and " + fail + " failed.")
+  if((success + fail) == groupList.length) window.alert("Posting finished with " + success + " post requests succeeded and " + fail + " failed.")
   continueToPost();
 }
 
