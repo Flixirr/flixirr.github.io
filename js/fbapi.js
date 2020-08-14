@@ -206,9 +206,11 @@ function ajaxPostPure(data, procUrl, fail, success) {
     cache: false,
     success:function (data) {
         success++;
+        console.log(success);
     },
     error:function (data) {
         fail++;
+        console.log(fail);
     },
     complete: function () {
       //here goes the message alert box, but I don't have time to implement it now
