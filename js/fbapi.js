@@ -153,6 +153,8 @@ function continueToPost() {
 }
 
 
+var fail = 0;
+var success = 0;
 
 // from https://vedmant.com/facebook-graph-api-upload-photo-using-javascript-local-computer/?fbclid=IwAR1pO_ZjEQXR_N6XHAxtSEHexArHWbc-gRxGismV0WIJq7B6yesoRjsSioA
 // needed to convert image to formdata and found this script which also posts it automatically
@@ -161,8 +163,8 @@ function ajaxPost() {
   var link = $('#link').val();
   var file = $('#image-src')[0].files[0];
 
-  var fail = 0;
-  var success = 0;
+  fail = 0;
+  success = 0;
 
   var data = new FormData();
 
@@ -183,18 +185,18 @@ function ajaxPost() {
         var blob = new Blob([arrayBuffer], { type: file.type });
         data.append('source', blob);
         for(let i = 0; i < groupList.length; i++) {
-          ajaxPostPure(data, 'https://graph.facebook.com/'+groupList[i].id+'/photos', fail, success);
+          ajaxPostPure(data, 'https://graph.facebook.com/'+groupList[i].id+'/photos');
         }
     };
     reader.readAsArrayBuffer(file);
   } else {
     for(let i = 0; i < groupList.length; i++) {
-      ajaxPostPure(data, 'https://graph.facebook.com/'+groupList[i].id+'/feed', fail, success);
+      ajaxPostPure(data, 'https://graph.facebook.com/'+groupList[i].id+'/feed');
     }
   }
 }
 
-function ajaxPostPure(data, procUrl, fail, success) {
+function ajaxPostPure(data, procUrl) {
   $.ajax({
     url: procUrl,
     type: 'POST',
