@@ -207,9 +207,10 @@ function ajaxPostPure(data, procUrl, group) {
     contentType: false,
     cache: false,
     success:function (data) {
-        success++;
+      success++;
     },
     error:function (data) {
+      fail++;
       groupsFailed += group + " ";
     },
     complete: function () {
