@@ -161,6 +161,9 @@ function ajaxPost() {
   var link = $('#link').val();
   var file = $('#image-src')[0].files[0];
 
+  var fail = 0;
+  var success = 0;
+
   var data = new FormData();
 
   data.append('message', message);
@@ -189,9 +192,11 @@ function ajaxPost() {
       ajaxPostPure(data, 'https://graph.facebook.com/'+groupList[i].id+'/feed');
     }
   }
+  window.alert("Posting finished with " + success + " post requests succeeded and " + fail + " failed.")
+  continueToPost();
 }
 
-function ajaxPostPure(data, procUrl) {
+function ajaxPostPure(data, procUrl, fail, success) {
   $.ajax({
     url: procUrl,
     type: 'POST',
@@ -200,13 +205,13 @@ function ajaxPostPure(data, procUrl) {
     contentType: false,
     cache: false,
     success:function (data) {
-        console.log(data)
+        success++;
     },
     error:function (data) {
-        console.log(data);
+        fail++;
     },
     complete: function () {
-        console.log("Done");
+      //here goes the message alert box, but I don't have time to implement it now
     }
   });
 }
