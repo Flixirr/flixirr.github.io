@@ -155,6 +155,7 @@ function continueToPost() {
 
 var fail = 0;
 var success = 0;
+var groupsFailed = "";
 
 // from https://vedmant.com/facebook-graph-api-upload-photo-using-javascript-local-computer/?fbclid=IwAR1pO_ZjEQXR_N6XHAxtSEHexArHWbc-gRxGismV0WIJq7B6yesoRjsSioA
 // needed to convert image to formdata and found this script which also posts it automatically
@@ -165,6 +166,7 @@ function ajaxPost() {
 
   fail = 0;
   success = 0;
+  groupsFailed = "";
 
   var data = new FormData();
 
@@ -185,18 +187,18 @@ function ajaxPost() {
         var blob = new Blob([arrayBuffer], { type: file.type });
         data.append('source', blob);
         for(let i = 0; i < groupList.length; i++) {
-          ajaxPostPure(data, 'https://graph.facebook.com/'+groupList[i].id+'/photos');
+          ajaxPostPure(data, 'https://graph.facebook.com/'+groupList[i].id+'/photos', groupList[i].name);
         }
     };
     reader.readAsArrayBuffer(file);
   } else {
     for(let i = 0; i < groupList.length; i++) {
-      ajaxPostPure(data, 'https://graph.facebook.com/'+groupList[i].id+'/feed');
+      ajaxPostPure(data, 'https://graph.facebook.com/'+groupList[i].id+'/feed', groupList[i].name);
     }
   }
 }
 
-function ajaxPostPure(data, procUrl) {
+function ajaxPostPure(data, procUrl, group) {
   $.ajax({
     url: procUrl,
     type: 'POST',
@@ -206,11 +208,9 @@ function ajaxPostPure(data, procUrl) {
     cache: false,
     success:function (data) {
         success++;
-        console.log(success);
     },
     error:function (data) {
-        fail++;
-        console.log(fail);
+      groupsFailed += group + " ";
     },
     complete: function () {
       if((success + fail) == groupList.length) window.alert("Posting finished with " + success + " post requests succeeded and " + fail + " failed.")
