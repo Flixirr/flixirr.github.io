@@ -183,17 +183,15 @@ function ajaxPost() {
         var blob = new Blob([arrayBuffer], { type: file.type });
         data.append('source', blob);
         for(let i = 0; i < groupList.length; i++) {
-          ajaxPostPure(data, 'https://graph.facebook.com/'+groupList[i].id+'/photos');
+          ajaxPostPure(data, 'https://graph.facebook.com/'+groupList[i].id+'/photos', fail, success);
         }
     };
     reader.readAsArrayBuffer(file);
   } else {
     for(let i = 0; i < groupList.length; i++) {
-      ajaxPostPure(data, 'https://graph.facebook.com/'+groupList[i].id+'/feed');
+      ajaxPostPure(data, 'https://graph.facebook.com/'+groupList[i].id+'/feed', fail, success);
     }
   }
-  if((success + fail) == groupList.length) window.alert("Posting finished with " + success + " post requests succeeded and " + fail + " failed.")
-  continueToPost();
 }
 
 function ajaxPostPure(data, procUrl, fail, success) {
@@ -213,6 +211,8 @@ function ajaxPostPure(data, procUrl, fail, success) {
         console.log(fail);
     },
     complete: function () {
+      if((success + fail) == groupList.length) window.alert("Posting finished with " + success + " post requests succeeded and " + fail + " failed.")
+      continueToPost();
       //here goes the message alert box, but I don't have time to implement it now
     }
   });
