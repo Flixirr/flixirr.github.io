@@ -140,7 +140,7 @@ function continueToPost() {
         "<span class=\"warning noselect\">WARNING! You can't send link to an event you're not hosting. If your post includes an image, post URL's with your message as they won't appear if you post them as link</span>"+
         "<textarea id=\"post-msg\" name=\"message\" rows=\"10\" cols=\"50\" placeholder=\"Enter text here\" required></textarea>"+
         "<div>"+
-            "<input id=\"link\" type=\"text\" placeholder=\"Link to group, page, event etc.\" />"+
+            "<input id=\"link\" type=\"text\" placeholder=\"Link to group, page, event etc.\" /><span class=\"warning noselect\">(if you're posting a link to and event, use https://bit.ly/ to shorten it because full link doesn't work)</span>"+
         "</div>"+
         "<div>"+
             "<input type=\"file\" id=\"image-src\"/>"+
